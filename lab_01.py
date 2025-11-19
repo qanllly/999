@@ -15,8 +15,8 @@ def check_input():
                 hours = int(hours) 
                 minutes = int(minutes)
 
-                checkHours = (0 <= hours <= 23)
-                checkMinutes = (0 <= minutes <= 59)
+                checkHours = (0 <= hours < 24)
+                checkMinutes = (0 <= minutes < 60)
 
                 if checkHours and checkMinutes: #если часы и минуты находятся в допустимых значения - конец цикла проверки
                     return hours, minutes
@@ -53,7 +53,7 @@ def padezh_hours(hours):
     elif twelve_format_hours == 1:
         padezh_h = "час"
     
-    elif 2 <= twelve_format_hours <= 4:
+    elif 2 <= twelve_format_hours < 5:
         padezh_h = "часа"
     
     else:
@@ -69,7 +69,7 @@ def padezh_minutes(minutes):
     # возвращаем падеж
     padezh_m = ""
 
-    if 10 <= minutes <= 20:
+    if 10 <= minutes < 21:
         padezh_m = "минут"
     
     elif minutes == 0:
@@ -80,8 +80,10 @@ def padezh_minutes(minutes):
 
         if last_minute == 1:
             padezh_m = "минута"
-        elif 2 <= last_minute <= 4:
+            
+        elif 2 <= last_minute < 5:
             padezh_m = "минуты"
+
         else:
             padezh_m = "минут"
     return padezh_m
@@ -95,13 +97,13 @@ def time_clock(hours):
     # возвращаем время суток
     clock = ""
 
-    if 0 <= hours <= 5:
+    if 0 <= hours < 6:
         clock = "ночи"
     
-    elif 6 <= hours <= 11:
+    elif 6 <= hours < 12:
         clock = "утра"
 
-    elif 12 <= hours <= 17:
+    elif 12 <= hours < 18:
         clock = "дня"
 
     else:
@@ -111,13 +113,21 @@ def time_clock(hours):
 
 def full_time_output(hours, minutes, padezh_h, padezh_m, clock):
     # функция составления итогового результата
+    # смотрим особый случай: если часы != 12 -> переводим в строковый формат 12 часовой формат часов, иначе -> переводим в строковый формат просто часы
     # смотрим особые случаи: если время 00:00 -> "полночь", если время 12:00 -> "полдень"
     # в остальных случаях: если минуты = 0 -> часы + пробел + падеж часов + пробел + время суток + пробел + падеж минут, 
     # в остальных случаях -> часы + пробел + падеж часов + пробел + минуты + пробел + падеж минут + пробел + время суток
     # возвращаем итоговый результат
     time_output = ""
+
+    hours_twelve_format = hours % 12
     
-    hours_s = str(hours)
+    if hours != 12:
+        hours_s = str(hours_twelve_format)
+
+    else:
+        hours_s = str(hours)
+
     minutes_s = str(minutes)
 
     space = " "
