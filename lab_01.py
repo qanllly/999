@@ -156,7 +156,7 @@ def main():
 
         print(time_output) # вывод результата
 
-    pass
 
 if __name__ == "__main__":
     main()
+
