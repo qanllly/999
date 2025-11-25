@@ -1,17 +1,17 @@
 def check_input():
     #Ввод и проверка ввода
-
-    while True: #бесконечный цикл проверки
-        userInput = input("Введите время в формате часы минуты: ").split() #запрос ввода и преобразование ввода в список
+    infinityChecker = True
+    while (infinityChecker): #бесконечный цикл проверки
+        userInput = input("Введите время в формате часы минуты: ").split() #запрос ввода
         
-        if len(userInput) == 1 and (userInput[0]).lower() == "выход": #если длина списка = 1 и строчные символы строки = "выход" -> возвращаем "exit" и "exit"
+        if len(userInput) == 1 and (userInput[0]).lower() == "выход": #если количество элементов ввода = 1 и строчные символы строки = "выход" -> возвращаем параметры выхода из проограммы
             return "exit", "exit"
         
         if len(userInput) == 2: #проверка, является длина ввода двум - если нет, выводим ошибку и просим ввод заново
             hours = userInput[0]
             minutes = userInput[1]
             
-            if hours.isdigit() and minutes.isdigit(): #если часы и минуты являются числами - преобразуем часы и минуты в int значение
+            if hours.isdigit() and minutes.isdigit(): #если часы и минуты являются числами - преобразуем часы и минуты в целое числовое значение
                 hours = int(hours) 
                 minutes = int(minutes)
 
@@ -153,7 +153,7 @@ def main():
     while True:
         hours, minutes = check_input() # проверяем ввод
         
-        if (hours and minutes) == "exit": # если возврат часов и минут = "exit" -> сообщаем пользователю об выходе из программы и завершаем программу
+        if (hours and minutes) == "exit": # если пользователь пишет "выход" -> сообщаем пользователю об выходе из программы и завершаем программу
             print("Выход из программы")
             break
         
@@ -169,4 +169,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
