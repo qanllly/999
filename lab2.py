@@ -1,0 +1,256 @@
+
+import random
+
+def bubble_sort(lst):
+    lst_length = len(lst)
+
+    lst_copy = list(lst)
+
+    perestanovki = 0
+    sravnenia = 0
+
+    for i in range(lst_length - 1):
+
+        for j in range(lst_length - i - 1):
+            
+            sravnenia += 1
+
+            if lst_copy[j] > lst_copy[j + 1]:
+                lst_copy[j], lst_copy[j + 1] = lst_copy[j + 1], lst_copy[j] 
+
+                perestanovki += 1
+
+    return lst_copy, perestanovki, sravnenia
+
+
+def selection_sort(lst):
+
+    lst_copy = list(lst)
+
+    def find_min_index(lst, start_index):
+        min_index = start_index
+
+        sravnenia = 0
+
+        for i in range(start_index + 1, len(lst)):
+
+            sravnenia += 1
+
+            if lst[i] < lst[min_index]:
+                min_index = i
+        
+        result_list = [min_index, sravnenia]
+
+        return result_list
+    
+    n = len(lst)
+
+    sravnenia = 0
+    perestanovki = 0
+
+    for i in range(n - 1):
+
+        lst_find_min_index = find_min_index(lst, i)
+
+        min_index = lst_find_min_index[0]
+
+        sravnenia += lst_find_min_index[1] 
+
+        if i != min_index:
+            lst_copy[i], lst_copy[min_index] = lst_copy[min_index], lst_copy[i]
+
+            perestanovki += 1
+    
+    return lst_copy, perestanovki, sravnenia
+
+def quick_sort(lst):
+
+    if len(lst) <= 1:
+        return lst, 0, 0
+    
+    random_element = random.choice(lst)
+
+    lst_menshe_random_element = [b for b in lst if b < random_element]
+    lst_ravniy_random_elementt = [b for b in lst if b == random_element]
+    lst_bolshe_random_element = [b for b in lst if b > random_element]
+
+    sravnenia_perviy_raz = len(lst) #т.к. мы сравниваем каждый элемент списка
+
+    sort_lst_menshe_random_element, perest_menshe, sravnenia_menshe = quick_sort(lst_menshe_random_element)
+    sort_lst_bolshe_random_element, perest_bolshe, sravnenia_bolshe = quick_sort(lst_bolshe_random_element)
+
+    perestanovki = perest_menshe + perest_bolshe
+    sravnenia = sravnenia_perviy_raz + sravnenia_menshe + sravnenia_bolshe
+
+
+    return sort_lst_menshe_random_element + lst_ravniy_random_elementt + sort_lst_bolshe_random_element, perestanovki, sravnenia
+
+
+def print_table(results):
+    header = f"| {'Алгоритм':<20} | {'Сравнения':<10} | {'Перестановки':<12} |"
+    print("-" * len(header))
+    print(header)
+    print("-" * len(header))
+    
+    for name, comp, swap in results:
+        print(f"| {name:<20} | {comp:<10} | {swap:<12} |")
+    print("-" * len(header))
+
+
+def demoversion():
+    print("\n=== ДЕМОНСТРАТИВНЫЙ РЕЖИМ ===")
+
+    lst = [random.randint(0, 99) for _ in range(10)]
+
+    print(f"Исходный массив: {lst}\n")
+
+    results = []
+
+    result_bubble, perest_bubble, sravn_bubble = bubble_sort(list(lst))
+    results.append(("Пузырьком (Bubble)", sravn_bubble, perest_bubble))
+
+    result_selection, perest_selection, sravn_selection = selection_sort(list(lst))
+    results.append(("Выбором (Selection)", sravn_selection, perest_selection))
+
+    result_quick, perest_quick, sravn_quick = quick_sort(list(lst)) 
+    results.append(("Быстрая (Quick)", sravn_quick, perest_quick))
+
+    print("Отсортированный массив:", result_bubble)
+    print("\nРезультаты анализа:")
+    print_table(results)
+    
+
+def check_input():
+
+    infinity_checker = True
+
+    while (infinity_checker):
+        user_input = input()
+
+        if user_input.isdigit():
+            return int(user_input)
+        
+        else:
+            print("Ошибка: Введите целое число.")
+
+
+def interactive_mode():
+    print("\n=== ИНТЕРАКТИВНЫЙ РЕЖИМ ===")
+
+    lst = []
+    
+    infinity_mode = True
+
+
+    while (infinity_mode):
+        print("\nМеню:")
+        print("1. Создать новый массив")
+        print("2. Показать текущий массив")
+        print("3. Изменить элемент массива")
+        print("4. Запустить сортировку (анализ)")
+        print("0. Выход в главное меню")
+        
+        choice = input("Ваш выбор: ")
+
+        
+        if choice == '1':
+            print("Введите длину массива: ")
+            size_lst = check_input()
+
+            if size_lst > 0:
+                lst = [random.randint(0, 99) for _ in range(size_lst)]
+                print("Массив создан")
+            else:
+                print("Ошибка: Размер массива должен быть больше 0.")
+                
+        elif choice == '2':
+            if not lst:
+                print("Массив пуст. Сначала создайте его.")
+            else:
+                print(f"Массив: {lst}")
+                
+        elif choice == '3':
+            if not lst:
+                print("Массив пуст. Сначала создайте его.")
+                continue
+            
+            max_index = len(lst) - 1
+
+            print("Введите позицию элемента (его индекс).")
+            
+            index = check_input()
+            
+            if 0 <= index <= max_index:
+                
+                print("Новое число:")
+
+                new_number = check_input()
+
+                lst[index] = new_number
+
+                print(f"Элемент заменен на {new_number}.")
+            else:
+                print("Ошибка: Неверный индекс.")
+                
+        elif choice == '4':
+            if not lst:
+                print("Массив пуст. Сначала создайте его.")
+                continue
+            
+            print(f"\nАнализ сортировки массива:")
+
+            results = []
+
+            result_bubble, sravn_bubble, perest_bubble = bubble_sort(list(lst))
+            results.append(("Пузырьком (Bubble)", sravn_bubble, perest_bubble))
+
+            result_selection, sravn_selection, perest_selection = selection_sort(list(lst))
+            results.append(("Выбором (Selection)", sravn_selection, perest_selection))
+
+            result_quick, sravn_quick, perest_quick = quick_sort(list(lst)) 
+            results.append(("Быстрая (Quick)", sravn_quick, perest_quick))
+            
+            print_table(results)
+            
+        elif choice == '0':
+            break
+
+        else:
+            print("Неверная команда. Пожалуйста, выберите опцию из меню.")
+
+
+def main():
+
+    indinity_menu = True
+
+    while (indinity_menu):
+        print("\n=== ГЛАВНОЕ МЕНЮ ===")
+        print("1. Демонстративный режим")
+        print("2. Интерактивный режим")
+        print("3. Выход")
+        
+        mode = input("Выберите режим: ")
+        
+        if mode == '1':
+            demoversion()
+
+        elif mode == '2':
+            interactive_mode()
+
+        elif mode == '3':
+            print("Программа завершена.")
+
+            break
+
+        else:
+            print("Ошибка: введите число из предложенных вариантов (1, 2, 3).")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
