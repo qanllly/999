@@ -106,13 +106,13 @@ def demoversion():
     results = []
 
     result_bubble, perest_bubble, sravn_bubble = bubble_sort(list(lst))
-    results.append(("Пузырьком (Bubble)", sravn_bubble, perest_bubble))
+    results.append(("Пузырьком", sravn_bubble, perest_bubble))
 
     result_selection, perest_selection, sravn_selection = selection_sort(list(lst))
-    results.append(("Выбором (Selection)", sravn_selection, perest_selection))
+    results.append(("Выбором", sravn_selection, perest_selection))
 
     result_quick, perest_quick, sravn_quick = quick_sort(list(lst)) 
-    results.append(("Быстрая (Quick)", sravn_quick, perest_quick))
+    results.append(("Быстрая", sravn_quick, perest_quick))
 
     print("Отсортированный массив:", result_bubble)
     print("\nРезультаты анализа:")
@@ -206,13 +206,13 @@ def interactive_mode():
             results = []
 
             result_bubble, perest_bubble, sravn_bubble = bubble_sort(list(lst))
-            results.append(("Пузырьком (Bubble)", sravn_bubble, perest_bubble))
+            results.append(("Пузырьком", sravn_bubble, perest_bubble))
 
             result_selection, perest_selection, sravn_selection = selection_sort(list(lst))
-            results.append(("Выбором (Selection)", sravn_selection, perest_selection))
+            results.append(("Выбором", sravn_selection, perest_selection))
 
             result_quick, perest_quick, sravn_quick = quick_sort(list(lst)) 
-            results.append(("Быстрая (Quick)", sravn_quick, perest_quick))
+            results.append(("Быстрая", sravn_quick, perest_quick))
 
 
             print("\nРезультаты анализа:")
@@ -406,6 +406,12 @@ if __name__ == "__main__":
 иначе: вывести сообщение об ошибке ввода и просим повторить выбор
 
 """
+
+
+
+
+
+
 
 
 
