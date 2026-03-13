@@ -79,7 +79,7 @@
 
 import random
 
-# --- ФУНКЦИИ ПРОВЕРКИ И ВЫВОДА ---
+#ФУНКЦИИ ПРОВЕРКИ И ВЫВОДА
 
 def get_input(pr):
     infinity_check = True
@@ -108,7 +108,7 @@ def print_results_table(results):
         print(f"| {name:<20} | {comp:<12} | {swap:<14} |")
     print(line)
 
-# --- АЛГОРИТМЫ СОРТИРОВОК ---
+#АЛГОРИТМЫ СОРТИРОВОК
 
 def selection_sort(lst):
     arr = list(lst)
@@ -159,7 +159,7 @@ def quick_sort(arr):
     
     return sorted_less + equal + sorted_greater, comparisons + c1 + c2, s1 + s2
 
-# --- РЕЖИМЫ РАБОТЫ ---
+#РЕЖИМЫ РАБОТЫ
 
 def run_demo():
     print("ДЕМОНСТРАТИВНЫЙ РЕЖИМ")
@@ -239,7 +239,7 @@ def run_interactive():
         else:
             print("Неверный выбор")
 
-# --- ЗАПУСК ---
+#ЗАПУСК
 
 def main():
     while True:
@@ -261,4 +261,5 @@ def main():
             print("Ошибка выбора")
 
 if __name__ == "__main__":
+
     main()
